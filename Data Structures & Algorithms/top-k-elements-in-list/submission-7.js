@@ -1,0 +1,27 @@
+class Solution {
+    /**
+     * @param {number[]} nums
+     * @param {number} k
+     * @return {number[]}
+     */
+    topKFrequent(nums, k) {
+        let obj = {};
+        let freq = Array.from({ length: nums.length + 1 }, () => []);
+        for (const n of nums) {
+            obj[n] = (obj[n] || 0) + 1;
+        }
+
+        for (const n in obj) {
+            freq[obj[n]].push(parseInt(n));
+        }
+        let res = [];
+        for (let i = freq.length - 1; i > 0; i--) {
+            for (const n of freq[i]) {
+                res.push(n);
+                if (res.length === k) {
+                    return res;
+                }
+            }
+        }
+    }
+}
